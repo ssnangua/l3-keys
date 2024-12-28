@@ -4,7 +4,7 @@
 
 You need a **wvd** file named `l3.wvd`, placed in the same directory as `l3.py` or `l3.exe`.
 
-You can refer to [here](https://forum.videohelp.com/threads/408031-Dumping-Your-own-L3-CDM-with-Android-Studio) to learn how to get `client_id.bin` and `private_key.pem`, and then run the following commands to get the **wvd** file:
+You can try the wvd files [here](https://forum.videohelp.com/threads/413719-Ready-to-use-CDMs-available-here%21), or refer to [here](https://forum.videohelp.com/threads/408031-Dumping-Your-own-L3-CDM-with-Android-Studio) to learn how to get `client_id.bin` and `private_key.pem`, and then run the following commands to get the **wvd** file:
 
 ```bash
 # Install `pywidevine`, `pyaml`
