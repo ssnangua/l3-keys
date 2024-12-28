@@ -1,0 +1,3 @@
+pywidevine==1.8.0
+Requests==2.32.3
+pyinstaller==6.11.1
