@@ -17,10 +17,6 @@ pywidevine create-device -k private_key.pem -c client_id.bin -t "CHROME" -l 3 -o
 ## Usage
 
 ```bash
-# py
-py l3.py [-h] [-wvd WVD] -pssh PSSH -lic_url LIC_URL [-lic_headers LIC_HEADERS]
-
-# exe
 l3.exe [-h] [-wvd WVD] -pssh PSSH -lic_url LIC_URL [-lic_headers LIC_HEADERS]
 ```
 
@@ -33,7 +29,7 @@ l3.exe [-h] [-wvd WVD] -pssh PSSH -lic_url LIC_URL [-lic_headers LIC_HEADERS]
  - `-h`, `--help`                show help message
  - `-v`, `--version`             show program's version number
 
-## Example
+### Example
 
 ```bash
 l3.exe -pssh AAAAW3Bzc2gAAAAA7e+LqXnWSs6jyCfc1R0h7QAAADsIARIQ62dqu8s0Xpa7z2FmMPGj2hoNd2lkZXZpbmVfdGVzdCIQZmtqM2xqYVNkZmFsa3IzaioCSEQyAA== -lic_url https://cwip-shaka-proxy.appspot.com/no_auth
