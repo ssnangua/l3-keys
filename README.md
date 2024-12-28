@@ -9,6 +9,7 @@ You can refer to [here](https://forum.videohelp.com/threads/408031-Dumping-Your-
 ```bash
 # Install `pywidevine`, `pyaml`
 pip install pywidevine pyaml
+
 # Create `wvd` File
 pywidevine create-device -k private_key.pem -c client_id.bin -t "CHROME" -l 3 -o wvd
 ```
@@ -17,7 +18,7 @@ pywidevine create-device -k private_key.pem -c client_id.bin -t "CHROME" -l 3 -o
 
 ```bash
 py l3.py [-h] [-wvd WVD] -pssh PSSH -lic_url LIC_URL [-lic_headers LIC_HEADERS]
-
+# or
 l3.exe [-h] [-wvd WVD] -pssh PSSH -lic_url LIC_URL [-lic_headers LIC_HEADERS]
 ```
 
@@ -29,9 +30,11 @@ l3.exe -pssh AAAANHBzc2gAAAAA7e+LqXnWSs6jyCfc1R0h7QAAABQIARIQnrQFDeRLSAKTLifXUIP
 
 ## Development
 
+**Require:** Python 3
+
 ```bash
 # Install
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 
 # Build
 pyinstaller -F l3.py
