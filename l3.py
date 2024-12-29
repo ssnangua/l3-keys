@@ -2,48 +2,37 @@ from pywidevine.cdm import Cdm
 from pywidevine.device import Device
 from pywidevine.pssh import PSSH
 import requests
-import json
-import argparse
 
-# Command Line Arguments
-parser = argparse.ArgumentParser(description='Get Widevine L3 Decryption Keys')
-parser.add_argument('-v', '--version', action='version', version='1.0.0')
-parser.add_argument('-wvd', default=r'./l3.wvd', help='wvd File. Default by "./l3.wvd"')
-parser.add_argument('-pssh', help='PSSH', required=True)
-parser.add_argument('-lic_url', help='License URL', required=True)
-parser.add_argument('-lic_headers', type=json.loads, help='License Headers')
-args = parser.parse_args()
+# Get decryption keys
+def get_keys(wvd, pssh, lic_url, lic_headers):
 
-# Get Arguments
-wvd, pssh, lic_url, lic_headers = args.wvd, args.pssh, args.lic_url, args.lic_headers
+    # Load device
+    device = Device.load(wvd)
 
-# Load Device
-device = Device.load(wvd)
+    # Load CDM
+    cdm = Cdm.from_device(device)
 
-# Load CDM
-cdm = Cdm.from_device(device)
+    # Open CDM
+    session_id = cdm.open()
 
-# Open CDM
-session_id = cdm.open()
+    # Get license challenge
+    challenge = cdm.get_license_challenge(session_id, PSSH(pssh))
 
-# Get License Challenge
-challenge = cdm.get_license_challenge(session_id, PSSH(pssh))
+    # Send license challenge
+    licence = requests.post(lic_url, headers=lic_headers, data=challenge)
+    licence.raise_for_status()
 
-# Send License Challenge
-licence = requests.post(lic_url, headers=lic_headers, data=challenge)
-licence.raise_for_status()
+    # Parse license
+    cdm.parse_license(session_id, licence.content)
 
-# Parse License
-cdm.parse_license(session_id, licence.content)
+    # Get decryption keys
+    keys = []
+    for key in cdm.get_keys(session_id):
+        if key.type=='CONTENT':
+            keys += [f'{key.kid.hex}:{key.key.hex()}']
 
-# Get Decryption Keys
-keys = []
-for key in cdm.get_keys(session_id):
-    if key.type=='CONTENT':
-        keys += [f'{key.kid.hex}:{key.key.hex()}']
+    # Close CDM
+    cdm.close(session_id) 
 
-# Close CDM
-cdm.close(session_id) 
-
-# Print Keys
-print(json.dumps(keys))
+    # Return keys
+    return keys
