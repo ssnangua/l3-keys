@@ -47,18 +47,18 @@ def get_keys():
         output_error(e)
 
 def output(text):
-    output_text.config(state='normal')
-    output_text.delete('1.0', 'end')
-    output_text.insert('1.0', text)
-    output_text.see('1.0')
-    output_text.config(state='disabled')
+    result_text.config(state='normal')
+    result_text.delete('1.0', 'end')
+    result_text.insert('1.0', text)
+    result_text.see('1.0')
+    result_text.config(state='disabled')
 
 def output_keys(keys):
     text = '\n'.join(keys)
     output(text)
     # Copy to clipboard
-    output_text.clipboard_clear()
-    output_text.clipboard_append(text)
+    result_text.clipboard_clear()
+    result_text.clipboard_append(text)
 
 def output_error(msg):
     output(f'Error: {msg}')
@@ -99,13 +99,13 @@ def add_text(height=5, pady=(0, 0), state='normal'):
     text.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
     # Associate the scrollbar and text widget
     text.config(yscrollcommand=scrollbar.set)
-    scrollbar.config(command = text.yview)
+    scrollbar.config(command=text.yview)
     return text
 
 # WVD
 wvd_box = Frame(frame)
 wvd_box.pack(fill='both')
-wvd_label = Label(wvd_box, text='WVD File (Require): ')
+wvd_label = Label(wvd_box, text='* WVD File: ')
 wvd_label.grid(row=0, column=0)
 wvd_entry = Entry(wvd_box, state='readonly')
 wvd_entry.grid(row=0, column=1, sticky='ew', ipady=10)
@@ -114,11 +114,11 @@ wvd_button.grid(row=0, column=2)
 wvd_box.columnconfigure(1, weight=1)
 
 # PSSH
-pssh_label = add_label(text='PSSH (Require):', pady=(20, 0))
+pssh_label = add_label(text='* PSSH:', pady=(20, 0))
 pssh_entry = add_entry(pady=(10, 0))
 
 # License URL
-lic_url_label = add_label(text='License URL (Require):', pady=(20, 0))
+lic_url_label = add_label(text='* License URL:', pady=(20, 0))
 lic_url_entry = add_entry(pady=(10, 0))
 
 # License Headers
@@ -129,9 +129,9 @@ lic_headers_text = add_text(height=10, pady=(10, 0))
 get_keys_button = Button(frame, text='GET KEYS', command=get_keys)
 get_keys_button.pack(anchor='e', pady=20)
 
-# Output
-keys_label = add_label(text='Output:')
-output_text = add_text(height=5, pady=(10, 0), state='disable')
+# Result
+result_label = add_label(text='Result:')
+result_text = add_text(height=5, pady=(10, 0), state='disable')
 
 # About
 about_label = Label(frame, text='github@ssnangua', fg='#c0c4cc', cursor="hand2")
