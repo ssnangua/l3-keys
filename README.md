@@ -19,7 +19,7 @@ pywidevine create-device -k private_key.pem -c client_id.bin -t "CHROME" -l 3 -o
 ## CLI
 
 ```bash
-l3-cli.exe [-h] [-wvd WVD] -pssh PSSH -lic_url LIC_URL [-lic_headers LIC_HEADERS]
+l3-cli.exe [-h] [-v] [-wvd WVD] -pssh PSSH -lic_url LIC_URL [-lic_headers LIC_HEADERS]
 ```
 
 ### Options
